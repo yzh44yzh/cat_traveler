@@ -1,0 +1,13 @@
+{application, cat_traveler,
+ [{description, "Cat Traveler"},
+  {vsn, "0.1.0"},
+  {registered, []},
+  {mod, { cat_traveler_app, []}},
+  {applications,
+   [kernel,
+    stdlib
+   ]},
+  {env,[]},
+  {modules, []},
+  {links, []}
+ ]}.
