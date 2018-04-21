@@ -3,13 +3,9 @@
 
 -export([start/2, stop/1]).
 
+-include("otp_specs.hrl").
 
--spec(start(StartType :: normal | {takeover, node()} | {failover, node()},
-    StartArgs :: term()) ->
-    {ok, pid()} |
-    {ok, pid(), State :: term()} |
-    {error, Reason :: term()}).
-
+-spec start(otp_app_start_type(), term()) -> otp_app_start_ret().
 start(_StartType, _StartArgs) ->
     %% TODO get towns from config
     Towns = [
@@ -23,7 +19,6 @@ start(_StartType, _StartArgs) ->
     cat_traveler_sup:start_link(Towns).
 
 
--spec(stop(State :: term()) -> term()).
-
+-spec stop(term()) -> term().
 stop(_State) ->
     ok.

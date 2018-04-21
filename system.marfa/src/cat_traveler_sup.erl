@@ -5,22 +5,15 @@
 -export([init/1]).
 
 -include("cat_traveler_types.hrl").
+-include("otp_specs.hrl").
 
--spec(start_link([town()]) ->
-    {ok, Pid :: pid()} | ignore | {error, Reason :: term()}).
 
+-spec start_link([town()]) -> otp_sup_start_ret().
 start_link(Towns) ->
     supervisor:start_link({local, ?MODULE}, ?MODULE, Towns).
 
 
--spec(init(Towns :: [town()]) ->
-    {ok, {SupFlags :: {RestartStrategy :: supervisor:strategy(),
-        MaxR :: non_neg_integer(), MaxT :: non_neg_integer()},
-        [ChildSpec :: supervisor:child_spec()]
-    }} |
-    ignore |
-    {error, Reason :: term()}).
-
+-spec init([town()]) -> otp_sup_init_ret().
 init(Towns) ->
     Spec = #{
         strategy => one_for_one, % one_for_one | one_for_all | rest_for_one
