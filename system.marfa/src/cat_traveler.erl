@@ -15,26 +15,26 @@
 -include("cat_traveler_types.hrl").
 
 
--spec enter(cat(), town()) -> ok | {error, already_in_town}.
+-spec enter(cat(), town()) -> ok | {error, already_in_town} | {error, invalid_town}.
 enter(_Cat, _Town) ->
     {error, already_in_town}.
 
 
--spec leave(cat(), town()) -> ok | {error, not_in_town}.
+-spec leave(cat(), town()) -> ok | {error, not_in_town} | {error, invalid_town}.
 leave(_Cat, _Town) ->
     {error, not_in_town}.
 
 
--spec dwell(cat(), town()) -> boolean().
+-spec dwell(cat(), town()) -> {ok, boolean()} | {error, invalid_town}.
 dwell(_Cat, _Town) ->
-    false.
+    {ok, false}.
 
 
--spec where_is_cat(cat()) -> town() | {error, not_found}.
+-spec where_is_cat(cat()) -> {ok, town()} | {error, not_found}.
 where_is_cat(_Cat) ->
     {error, not_found}.
 
 
--spec who_is_in_town(town()) -> [cat()].
+-spec who_is_in_town(town()) -> {ok, [cat()]} | {error, invalid_town}.
 who_is_in_town(_Town) ->
-    [].
+    {ok, []}.
