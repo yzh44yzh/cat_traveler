@@ -14,10 +14,11 @@
 
 -include("cat_traveler_types.hrl").
 
+-define(srv, cat_traveler_srv).
 
 -spec enter(cat(), town()) -> ok | {error, already_in_town} | {error, invalid_town}.
-enter(_Cat, _Town) ->
-    {error, already_in_town}.
+enter(Cat, Town) ->
+    gen_server:call(?srv, {enter, Cat, Town}).
 
 
 -spec leave(cat(), town()) -> ok | {error, not_in_town} | {error, invalid_town}.
