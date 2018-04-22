@@ -78,10 +78,26 @@ handle_call({leave, Cat, Town}, _From, State = #state{cats = Cats, towns = Towns
         error -> {reply, {error, invalid_town}, State}
     end;
 
+handle_call({dwell, Cat, Town}, _From, State = #state{towns = Towns}) ->
+    case maps:find(Town, Towns) of
+        {ok, CatsInTown} ->
+            Reply = sets:is_element(Cat, CatsInTown),
+            {reply, {ok, Reply}, State};
+        error -> {reply, {error, invalid_town}, State}
+    end;
+
 handle_call({where_is_cat, Cat}, _From, State = #state{cats = Cats}) ->
     case maps:find(Cat, Cats) of
         {ok, Town} -> {reply, {ok, Town}, State};
         error -> {reply, {error, not_found}, State}
+    end;
+
+handle_call({who_is_in_town, Town}, _From, State = #state{towns = Towns}) ->
+    case maps:find(Town, Towns) of
+        {ok, CatsInTown} ->
+            Cats = sets:to_list(CatsInTown),
+            {reply, {ok, Cats}, State};
+        error -> {reply, {error, invalid_town}, State}
     end;
 
 handle_call(_Request, _From, State) ->
