@@ -22,8 +22,8 @@ enter(Cat, Town) ->
 
 
 -spec leave(cat(), town()) -> ok | {error, not_in_town} | {error, invalid_town}.
-leave(_Cat, _Town) ->
-    {error, not_in_town}.
+leave(Cat, Town) ->
+    gen_server:call(?srv, {leave, Cat, Town}).
 
 
 -spec dwell(cat(), town()) -> {ok, boolean()} | {error, invalid_town}.
