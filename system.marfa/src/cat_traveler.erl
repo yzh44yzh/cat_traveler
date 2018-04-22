@@ -28,14 +28,16 @@ leave(Cat, Town) ->
 
 -spec dwell(cat(), town()) -> {ok, boolean()} | {error, invalid_town}.
 dwell(_Cat, _Town) ->
+    %% TODO
     {ok, false}.
 
 
 -spec where_is_cat(cat()) -> {ok, town()} | {error, not_found}.
-where_is_cat(_Cat) ->
-    {error, not_found}.
+where_is_cat(Cat) ->
+    gen_server:call(?srv, {where_is_cat, Cat}).
 
 
 -spec who_is_in_town(town()) -> {ok, [cat()]} | {error, invalid_town}.
 who_is_in_town(_Town) ->
+    %% TODO
     {ok, []}.

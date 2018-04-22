@@ -78,8 +78,14 @@ handle_call({leave, Cat, Town}, _From, State = #state{cats = Cats, towns = Towns
         error -> {reply, {error, invalid_town}, State}
     end;
 
+handle_call({where_is_cat, Cat}, _From, State = #state{cats = Cats}) ->
+    case maps:find(Cat, Cats) of
+        {ok, Town} -> {reply, {ok, Town}, State};
+        error -> {reply, {error, not_found}, State}
+    end;
+
 handle_call(_Request, _From, State) ->
-    {reply, ok, State}.
+    {reply, {error, invalid_call}, State}.
 
 
 -spec handle_cast(term(), #state{}) -> otp_gen_srv_cast_ret().
