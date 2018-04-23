@@ -7,6 +7,7 @@
 
 -spec start(otp_app_start_type(), term()) -> otp_app_start_ret().
 start(_StartType, _StartArgs) ->
+    start_cowboy(),
     %% TODO get towns from config
     Towns = [
         {town, <<"Minsk">>},
@@ -21,4 +22,16 @@ start(_StartType, _StartArgs) ->
 
 -spec stop(term()) -> term().
 stop(_State) ->
+    ok.
+
+
+-spec start_cowboy() -> ok.
+start_cowboy() ->
+    Dispatch = cowboy_router:compile([
+        {'_', [{"/ping", ct_handler_ping, no_state}]}
+    ]),
+    {ok, _} = cowboy:start_clear(ct_http_listener,
+        [{port, 8080}],
+        #{env => #{dispatch => Dispatch}}
+    ),
     ok.

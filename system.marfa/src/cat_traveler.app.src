@@ -5,7 +5,8 @@
   {mod, { cat_traveler_app, []}},
   {applications,
    [kernel,
-    stdlib
+    stdlib,
+    cowboy
    ]},
   {env,[]},
   {modules, []},
