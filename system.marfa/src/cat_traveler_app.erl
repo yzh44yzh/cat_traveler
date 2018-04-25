@@ -28,7 +28,14 @@ stop(_State) ->
 -spec start_cowboy() -> ok.
 start_cowboy() ->
     Dispatch = cowboy_router:compile([
-        {'_', [{"/ping", ct_handler_ping, no_state}]}
+        {'_', [
+            {"/enter", ct_handler_api, no_state},
+            {"/leave", ct_handler_api, no_state},
+            {"/dwell", ct_handler_api, no_state},
+            {"/where_is_cat", ct_handler_api, no_state},
+            {"/who_is_in_town", ct_handler_api, no_state},
+            {"/ping", ct_handler_ping, no_state}
+        ]}
     ]),
     {ok, _} = cowboy:start_clear(ct_http_listener,
         [{port, 8080}],
