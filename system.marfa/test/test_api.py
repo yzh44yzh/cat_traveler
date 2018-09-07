@@ -8,6 +8,7 @@ headers = {
     'Content-Type': 'application/json'
 }
 
+
 def enter(cat, town):
     data = json.dumps({
         'cat': cat,
