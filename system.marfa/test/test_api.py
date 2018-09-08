@@ -69,11 +69,19 @@ def print_res(res):
     print(json.dumps(j, indent=2), '\n')
 
 
-ping()
-enter('Tihon', 'Minsk')
-leave('Tihon', 'Minsk')
+# ping()
+# enter('Tihon', 'Minsk')
+enter('Marfa', 'Minsk')
+# enter('Marfa', 'Barcelona')
+# enter('Tihon', 'Paris')
+# leave('Tihon', 'Minsk')
 # dwell('Tihon', 'Minsk')
+# dwell('Marfa', 'Minsk')
+# dwell('Tihon', 'Paris')
 # where_is_cat('Tihon')
-# who_is_in_town('Minsk')
+# where_is_cat('Marfa')
+who_is_in_town('Minsk')
+# who_is_in_town('Barcelona')
+# who_is_in_town('Praha')
 
 print('DONE')
