@@ -5,6 +5,8 @@
 %% https://www.youtube.com/watch?v=qCRO964l_nE
 
 -export([
+    new_cat/1,
+    new_town/1,
     enter/2,
     leave/2,
     dwell/2,
@@ -15,6 +17,15 @@
 -include("cat_traveler_types.hrl").
 
 -define(srv, cat_traveler_srv).
+
+
+-spec new_cat(binary()) -> cat().
+new_cat(Name) -> {cat, Name}.
+
+
+-spec new_town(binary()) -> town().
+new_town(Name) -> {town, Name}.
+
 
 -spec enter(cat(), town()) -> ok | {error, already_in_town} | {error, invalid_town}.
 enter(Cat, Town) ->
