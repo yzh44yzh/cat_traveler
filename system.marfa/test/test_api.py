@@ -70,7 +70,7 @@ def print_res(res):
 
 
 # ping()
-# enter('Tihon', 'Minsk')
+enter('Tihon', 'Minsk')
 enter('Marfa', 'Minsk')
 # enter('Marfa', 'Barcelona')
 # enter('Tihon', 'Paris')
