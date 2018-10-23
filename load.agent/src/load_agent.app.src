@@ -1,0 +1,10 @@
+{application, load_agent, [
+    {description, "Cat Traveler load agent"},
+    {vsn, "0.1.0"},
+    {registered, []},
+    {mod, {load_agent_app, []}},
+    {applications, [kernel, stdlib, hackney]},
+    {env,[]},
+    {modules, []},
+    {links, []}
+]}.

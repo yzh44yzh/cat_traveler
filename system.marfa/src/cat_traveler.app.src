@@ -1,15 +1,15 @@
-{application, cat_traveler,
-    [{description, "Cat Traveler"},
-        {vsn, "0.1.0"},
-        {registered, []},
-        {mod, { cat_traveler_app, []}},
-        {applications, [kernel, stdlib, cowboy]},
-        {env,[
-            {towns, [
-                {town, <<"Minsk">>},
-                {town, <<"Barcelona">>}
-            ]}
-        ]},
-        {modules, []},
-        {links, []}
-    ]}.
+{application, cat_traveler, [
+    {description, "Cat Traveler"},
+    {vsn, "0.1.0"},
+    {registered, []},
+    {mod, {cat_traveler_app, []}},
+    {applications, [kernel, stdlib, cowboy]},
+    {env,[
+        {towns, [
+            {town, <<"Minsk">>},
+            {town, <<"Barcelona">>}
+        ]}
+    ]},
+    {modules, []},
+    {links, []}
+]}.

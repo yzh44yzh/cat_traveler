@@ -1,8 +1,7 @@
 -module(cat_traveler_sup).
 -behaviour(supervisor).
 
--export([start_link/1]).
--export([init/1]).
+-export([start_link/1, init/1]).
 
 -include("cat_traveler_types.hrl").
 -include("otp_specs.hrl").
