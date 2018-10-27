@@ -2,34 +2,35 @@
 
 -export([enter_town/2, leave_town/2]).
 
--define(URL, "http://localhost:8080"). % TODO move to configuration
+-include("logger.hrl").
 
 -spec enter_town(binary(), binary()) -> ok.
 enter_town(CatName, Town) ->
-    io:format("~p enters ~p~n", [CatName, Town]), % TODO ?log_info
+    ?log_info("~s enters ~s", [CatName, Town]),
     Payload = <<
         "{\"cat\": \"", CatName/binary,
         "\", \"town\": \"", Town/binary, "\"}"
     >>,
-    call(put, ?URL ++ "/enter", Payload).
+    call(put, "/enter", Payload).
 
 
 -spec leave_town(binary(), binary()) -> ok.
 leave_town(CatName, Town) ->
-    io:format("~p leaves ~p~n", [CatName, Town]),
+    ?log_info("~s leaves ~s", [CatName, Town]),
     Payload = <<
         "{\"cat\": \"", CatName/binary,
         "\", \"town\": \"", Town/binary, "\"}"
     >>,
-    call(put, ?URL ++ "/leave", Payload).
+    call(put, "/leave", Payload).
 
 
 -spec call(atom(), string(), binary()) -> ok.
 call(Method, Url, Payload) ->
+    {ok, API_URL} = application:get_env(load_agent, api_url),
     Headers = [{<<"Content-Type">>, <<"application/json">>}],
-    case hackney:request(Method, Url, Headers, Payload) of
+    case hackney:request(Method, API_URL ++ Url, Headers, Payload) of
         {ok, 200, _, _} -> ok;
         {ok, Status, _, ClientRef} ->
             {ok, Body} = hackney:body(ClientRef),
-            io:format("~p ~p ~p ~p~n", [Url, Payload, Status, Body])
+            ?log_error("invalid request ~p ~p ~p ~p", [Url, Payload, Status, Body])
     end.
