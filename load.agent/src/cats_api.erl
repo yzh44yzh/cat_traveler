@@ -29,8 +29,12 @@ call(Method, Url, Payload) ->
     {ok, API_URL} = application:get_env(load_agent, api_url),
     Headers = [{<<"Content-Type">>, <<"application/json">>}],
     case hackney:request(Method, API_URL ++ Url, Headers, Payload) of
-        {ok, 200, _, _} -> ok;
+        {ok, 200, _, ClientRef} ->
+            hackney:skip_body(ClientRef),
+            ok;
         {ok, Status, _, ClientRef} ->
             {ok, Body} = hackney:body(ClientRef),
-            ?log_error("invalid request ~p ~p ~p ~p", [Url, Payload, Status, Body])
+            ?log_error("invalid request ~p ~p ~p ~p", [Url, Payload, Status, Body]);
+        {error, Error} ->
+            ?log_error("invalid request ~p ~p ~p ~p", [Url, Payload, Error])
     end.
