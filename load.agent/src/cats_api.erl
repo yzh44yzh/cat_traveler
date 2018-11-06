@@ -36,5 +36,5 @@ call(Method, Url, Payload) ->
             {ok, Body} = hackney:body(ClientRef),
             ?log_error("invalid request ~p ~p ~p ~p", [Url, Payload, Status, Body]);
         {error, Error} ->
-            ?log_error("invalid request ~p ~p ~p ~p", [Url, Payload, Error])
+            ?log_error("invalid request ~p ~p ~p", [Url, Payload, Error])
     end.
